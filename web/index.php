@@ -1,25 +1,26 @@
 <?php
+// Conectando y seleccionado la base de datos  
+$dbconn = pg_connect('DATABASE_URL')
+    or die('No se ha podido conectar: ' . pg_last_error());
 
-require('../vendor/autoload.php');
+// Realizando una consulta SQL
+$query = 'SELECT * FROM authors';
+$result = pg_query($query) or die('La consulta fallo: ' . pg_last_error());
 
-$app = new Silex\Application();
-$app['debug'] = true;
+// Imprimiendo los resultados en HTML
+echo "<table>\n";
+while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+    echo "\t<tr>\n";
+    foreach ($line as $col_value) {
+        echo "\t\t<td>$col_value</td>\n";
+    }
+    echo "\t</tr>\n";
+}
+echo "</table>\n";
 
-// Register the monolog logging service
-$app->register(new Silex\Provider\MonologServiceProvider(), array(
-  'monolog.logfile' => 'php://stderr',
-));
+// Liberando el conjunto de resultados
+pg_free_result($result);
 
-// Register view rendering
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__.'/views',
-));
-
-// Our web handlers
-
-$app->get('/', function() use($app) {
-  $app['monolog']->addDebug('logging output.');
-  return $app['twig']->render('index.twig');
-});
-
-$app->run();
+// Cerrando la conexión
+pg_close($dbconn);
+?>
