@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
 <?php
 // Conectando y seleccionado la base de datos 
 $dbopts = getenv('DATABASE_URL');
@@ -7,6 +15,14 @@ $dbconn = pg_connect($dbopts)
 // Realizando una consulta SQL
 $query = 'SELECT * FROM users';
 $result = pg_query($query) or die('La consulta fallo: ' . pg_last_error());
+
+//Formulario de registro de usuarios
+echo "<form method='post' action='index.php'>\n";
+    echo "<h3>Registrarse</h3>\n";
+    echo "<p>User: <input type='text' name='user'/></p>\n";
+    echo "<p>Password: <input type='text' name='password'/></p>\n";
+    echo "<p><input type='submit'/></p>\n";
+echo "</form>\n";
 
 // Imprimiendo los resultados en HTML
 echo "<table>\n";
@@ -25,3 +41,5 @@ pg_free_result($result);
 // Cerrando la conexión
 pg_close($dbconn);
 ?>
+</body>
+</html>
