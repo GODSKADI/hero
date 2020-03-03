@@ -21,11 +21,14 @@ echo "<form action='index.php' method='POST' >
     <p>Registrate</p>\n
     <p>User: <input type='text' name='user'/></p>
     <p>Password: <input type='text' name='pass'/></p>
-    <p><input type='submit' /></p>
+    <p><input type='submit' name='submit'/></p>
     </form>";
 
 //Insertar en la base de datos
-$newUser = 'INSERT INTO users values($_POST["user"], $_POST["pass"])';
+if (isset($_POST['submit'])){
+    $newUser = 'INSERT INTO users values("'$_POST['user'], $_POST['pass']'")';
+
+}
 
 // Imprimiendo los resultados en HTML
 echo "<table>\n";
@@ -39,7 +42,7 @@ while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
 echo "</table>\n";
 
 // Liberando el conjunto de resultados
-pg_free_result($result);
+pg_free_result($result, $newUser);
 
 // Cerrando la conexión
 pg_close($dbconn);
