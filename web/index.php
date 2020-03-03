@@ -42,7 +42,7 @@ while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
 echo "</table>\n";
 
 // Liberando el conjunto de resultados
-pg_free_result($result, $newUser);
+pg_free_result($result);
 
 // Cerrando la conexión
 pg_close($dbconn);
