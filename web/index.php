@@ -24,6 +24,9 @@ echo "<form action='index.php' method='POST' >
     <p><input type='submit' /></p>
     </form>";
 
+//Insertar en la base de datos
+$newUser = 'INSERT INTO users values($_POST["user"], $_POST["pass"])';
+
 // Imprimiendo los resultados en HTML
 echo "<table>\n";
 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
