@@ -17,7 +17,12 @@ $query = 'SELECT * FROM users';
 $result = pg_query($query) or die('La consulta fallo: ' . pg_last_error());
 
 //Formulario de registro de usuarios
-echo "Hola";
+echo "<form action='index.php' method='POST' >
+    <p>Registrate</p>\n
+    <p>User: <input type='text' name='user'/></p>
+    <p>Password: <input type='text' name='pass'/></p>
+    <p><input type='submit' /></p>
+    </form>";
 
 // Imprimiendo los resultados en HTML
 echo "<table>\n";
