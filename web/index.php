@@ -26,9 +26,9 @@ echo "<form action='index.php' method='POST' >
 
 //Insertar en la base de datos
 if (isset($_POST['submit'])){
-    $newUser = 'INSERT INTO users values("'.$_POST['user'].'","'.$_POST['pass'].'")';
-    echo $newUser;
-    //pg_query($newUser);
+    $newUser = "INSERT INTO users values('".$_POST['user']."','".$_POST['pass']."')";
+    //echo $newUser;
+    pg_query($newUser);
 }
 
 
